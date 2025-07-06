@@ -102,7 +102,7 @@ If it’s still **too big**, go back and un-select more packages.
    
 Already installed OpenWRT?
 
-1. Somehow send new *.bin to router (scp cought help)
+1. Somehow send new *.bin to router (scp should help)
 2. `ssh root@192.168.1.1`
 3. In directory, where you saved it, use 
 ```bash
@@ -233,6 +233,3 @@ if you got some other configs - i`m open to MR!
 
 Hope it will help!
 *— Andrii (2025-07)*
-
-```
-```
