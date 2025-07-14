@@ -1,4 +1,3 @@
-````markdown
 # OpenWrt × eduroam – “Wired-Enterprise” router in 8 MB  
 Connect a small TP-Link Archer C6 v2 (Ath79) to **eduroam** over Ethernet (IEEE 802.1X) and still keep Wi-Fi + LAN for your own devices – without LuCI and inside the 8 MB flash limit.
 
@@ -61,7 +60,6 @@ RUN git clone --depth 1 --branch v24.10.2 \
       https://git.openwrt.org/openwrt/openwrt.git .
 RUN ./scripts/feeds update -a && ./scripts/feeds install -a
 CMD ["bash"]
-````
 
 ```bash
 # build & enter
@@ -104,7 +102,7 @@ If it’s still **too big**, go back and un-select more packages.
    
 Already installed OpenWRT?
 
-1. Somehow send new *.bin to router (scp cought help)
+1. Somehow send new *.bin to router (scp should help)
 2. `ssh root@192.168.1.1`
 3. In directory, where you saved it, use 
 ```bash
@@ -235,6 +233,3 @@ if you got some other configs - i`m open to MR!
 
 Hope it will help!
 *— Andrii (2025-07)*
-
-```
-```
