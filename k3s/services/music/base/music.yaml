@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: navidrome
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: navidrome
+  template:
+    metadata:
+      labels:
+        app: navidrome
+    spec:
+      containers:
+      - name: navidrome
+        image: deluan/navidrome:latest
+        env:
+        - name: ND_CONFIGFILE
+          value: "/config/navidrome.toml"
+        - name: ND_LISTEN_ADDR
+          value: "0.0.0.0:4533"
+        ports:
+        - containerPort: 4533
+        volumeMounts:
+        - name: music-volume
+          mountPath: /music
+        - name: data-volume
+          mountPath: /data
+        - name: config-volume
+          mountPath: /config
+          readOnly: true
+      volumes:
+      - name: music-volume
+        hostPath:
+          path: /mnt/music
+          type: Directory
+      - name: data-volume
+        hostPath:
+          path: /mnt/data
+          type: Directory
+      - name: config-volume
+        configMap:
+          name: server-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: music-service
+spec:
+  selector:
+    app: navidrome
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 4533
