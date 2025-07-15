@@ -26,9 +26,6 @@ spec:
   #           name: github-hook-service
   #           port:
   #             number: 8001
-  spec:
-  ingressClassName: nginx
-  rules:
   - host: music.distrbyt.com
     http:
       paths:
