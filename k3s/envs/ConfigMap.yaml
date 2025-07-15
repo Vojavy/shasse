@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: server-config
+data:
+  navidrome.toml: |
+    MusicFolder = "/music"
+    DataFolder = "/data"
+    CacheFolder = "/data/cache"
+    LogLevel = "info"
+    BaseUrl = "https://music.distrbyt.dev"
+    EnableInsightsCollector = false
+    AutoImportPlaylists = true
+    LastFM.Enabled = false
+    DefaultLanguage = "ru"
+    DefaultTheme = "Dark"
+    UIWelcomeMessage = "Пора послушать музончикс"
+    ImageCacheSize = "100MB"
+    EnableTranscodingConfig = true
+    DefaultDownsamplingFormat = "opus"
+    EnableSharing = true
+    DefaultShareExpiration = "24h"
+    DefaultDownloadableShare = true
+    AuthRequestLimit = 5
+    EnableNowPlaying = true
+    Scanner.Schedule = "0 6 * * *"

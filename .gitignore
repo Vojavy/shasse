@@ -1,2 +1,3 @@
-.\k3s\envs\Secrets.yaml
-.\volumes\
+volumes/
+k3s/envs/Secrets.yaml
+telegram_bot/
