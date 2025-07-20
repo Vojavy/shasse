@@ -6,6 +6,7 @@ metadata:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
   ingressClassName: nginx
   # tls:
@@ -36,3 +37,13 @@ spec:
             name: music-service
             port:
               number: 80
+  - host: registry.local           # любое имя; пропишите в hosts
+    http:   
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: registry
+              port:
+                number: 5000

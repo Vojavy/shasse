@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: navidrome
+spec:
+  template:
+    spec:
+      volumes:
+        - name: music-volume
+          hostPath:
+            path: D:\server\volumes\music
+        - name: data-volume
+          hostPath:
+            path: D:\server\volumes\navidrome-data

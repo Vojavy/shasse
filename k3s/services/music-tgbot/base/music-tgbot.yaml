@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: music-tgbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: music-tgbot
+  template:
+    metadata:
+      labels:
+        app: music-tgbot
+    spec:
+      containers:
+        - name: bot
+          image: REPLACEME
+          imagePullPolicy: Always
+          env:
+            - name: TELEGRAM_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: music-tgbot-secrets
+                  key: TELEGRAM_TOKEN
+            - name: SPOTIFY_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: music-tgbot-secrets
+                  key: SPOTIFY_CLIENT_ID
+            - name: SPOTIFY_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: music-tgbot-secrets
+                  key: SPOTIFY_CLIENT_SECRET
+            - name: ACOUSTID_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: music-tgbot-secrets
+                  key: ACOUSTID_KEY
+            - name: LASTFM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: music-tgbot-secrets
+                  key: LASTFM_API_KEY
+            - name: DISCOGS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: music-tgbot-secrets
+                  key: DISCOGS_TOKEN
+                  optional: true
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config-template.yaml
+              subPath: config-template.yaml
+              readOnly: true
+            - name: cookie-volume
+              mountPath: /config
+              readOnly: true
+            - name: music-volume
+              mountPath: /music
+      volumes:
+        - name: config-volume
+          configMap:
+            name: music-tgbot-config
+        - name: cookie-volume
+          secret:
+            secretName: youtube-cookies
+        - name: music-volume
+          hostPath:
+            path: CHANGING_WITH_KUSTOMIZATION
+            type: DirectoryOrCreate

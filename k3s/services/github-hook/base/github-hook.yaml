@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: navidrome
+  labels:
+    app: navidrome
 spec:
   replicas: 1
   selector:
@@ -11,6 +13,11 @@ spec:
     metadata:
       labels:
         app: navidrome
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
     spec:
       containers:
       - name: navidrome
@@ -18,8 +25,6 @@ spec:
         env:
         - name: ND_CONFIGFILE
           value: "/config/navidrome.toml"
-        - name: ND_LISTEN_ADDR
-          value: "0.0.0.0:4533"
         ports:
         - containerPort: 4533
         volumeMounts:
@@ -33,15 +38,15 @@ spec:
       volumes:
       - name: music-volume
         hostPath:
-          path: CHANGING_WITH_KUSTOMIZATION
+          path: PLACEHOLDER_MUSIC
           type: Directory
       - name: data-volume
         hostPath:
-          path: CHANGING_WITH_KUSTOMIZATION
+          path: PLACEHOLDER_DATA
           type: Directory
       - name: config-volume
         configMap:
-          name: navidrome-config
+          name: server-config
 ---
 apiVersion: v1
 kind: Service
@@ -52,5 +57,5 @@ spec:
     app: navidrome
   ports:
   - protocol: TCP
-    port: 80
+    port: 8027
     targetPort: 4533

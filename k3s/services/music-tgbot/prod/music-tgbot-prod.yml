@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: music-tgbot
+spec:
+  template:
+    spec:
+      imagePullSecrets:          # если нужен доступ к приватному реестру
+        - name: regcred
+      containers:
+        - name: bot
+          image: registry.distrbyt.com/music-tgbot:latest
+      volumes:
+        - name: music-volume
+          hostPath:
+            path: /srv/volumes/music

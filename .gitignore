@@ -1,3 +1,4 @@
 volumes/
-k3s/envs/Secrets.yaml
-telegram_bot/
+k3s/envs/MusicTGBotSecrets.yaml
+k3s/envs/NavidromeSecrets.yaml
+music-bot/
